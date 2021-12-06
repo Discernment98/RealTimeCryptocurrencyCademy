@@ -607,22 +607,25 @@ li a.menu-btn1:hover{
 .contact .contact-content .info .sub-title{
     color: #fff;
 }
-.contact .right form .fields{
+.contact .right form .fields {
     display: flex;
+    flex: 1 1 auto;
 }
 .contact .right form .field,
-.contact .right form .fields .field{
+.contact .right form .fields .field {
     height: 45px;
-    width: 100%;
+    width: 100% ;
     margin-bottom: 15px;
+    /* background: purple; */
 }
+
 .contact .right form .textarea{
     height: 80px;
     width: 100%;
 }
-.contact .right form .name{
+/* .contact .right form .name{
     margin-right: 10px;
-}
+} */
 .contact .right form .email{
     margin-left: 10px;  
 }
@@ -812,6 +815,10 @@ footer span a:hover{
         width: 35px;
         font-size: 23px;
         line-height: 38px;
+    }
+
+    .hide-sm-down {
+        display: none;
     }
 }
 

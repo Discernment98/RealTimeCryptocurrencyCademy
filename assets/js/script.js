@@ -28,6 +28,16 @@ const getData = async (url, headers) => {
     }
 };
 
+// Loads date in the footer
+const initFooterContent = () => {
+    const footer = document.querySelector("#footer");
+    footer.innerHTML = `<span>
+        Created By 
+        <a href="#">DisTech</a> | <span class="far fa-copyright"></span> ${new Date().getFullYear()} All rights reserved.
+        </span>
+    `;
+};
+
 const findCourses = async () => {
     const response = await getData(`${apiRootUrl}/course/find-courses-for-sl`, { "Content-Type": "application/json" });
     if (response.code === 200) { 
@@ -59,6 +69,7 @@ const findCourses = async () => {
 };
 
 $(document).ready(async function() {
+    initFooterContent();
     // Load data for courses
     await findCourses();
 
