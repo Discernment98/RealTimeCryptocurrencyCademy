@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>RealTime Digital Success Creators</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
@@ -19,6 +19,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
 
+    <!-- Import toast scripts-->
+    <link rel="stylesheet" href="/assets/css/mdtoast.min.css" />
+    <script src="/assets/js/mdtoast.min.js"></script>
 </head>
 <body>
     <div class="scroll-up-btn">
@@ -254,22 +257,23 @@
                     </div>
                 </div>
                 <div class="column right">
-                    <div class="text">Message me</div>
-                    <form action="#">
+                    <div class="text">Send us a message</div>
+                    <form id="contact-message-form">
                         <div class="fields">
                             <div class="field name">
-                                <input type="text" placeholder="Name" required>
+                                <input type="text" id="first-name" placeholder="First Name" required />
                             </div>
-                            <div class="field email">
-                                <input type="email" placeholder="Email" required>
+                            <div class="field name">
+                                <input type="text" id="last-name" placeholder="Last Name" required />
                             </div>
                         </div>
                         <div class="field">
-                            <input type="text" placeholder="Your Message" required>
+                            <input type="email" id="email-address" placeholder="Email" required />
                         </div>
                         <div class="field textarea">
                             <!-- Due to more textarea, I got an error so I changed the tag name of this textarea into changeit. -->
-                            <changeit cols="30" rows="10" placeholder="Message.." required></changeit>
+                            <!-- <changeit cols="30" rows="10" placeholder="Message.." required></changeit> -->
+                            <textarea id="contact-message" cols="30" rows="10" placeholder="Message.." required></textarea>
                         </div>
                         <div class="button">
                             <button type="submit">Send message</button>
@@ -288,16 +292,7 @@
         </span>
     </footer>
 
-<script src="script.js"></script>
-<script>
-    const navbar = document.querySelector(".navbar");
-    window.addEventListener("scroll", (e) => {
-        if (window.scrollY > 300) {
-            navbar.classList.add("navbar-dark");
-        } else {
-            navbar.classList.remove("navbar-dark");
-        }
-    });
-</script>
+<script src="./assets/js/script.js"></script>
+
 </body>
 </html>

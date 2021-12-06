@@ -216,7 +216,7 @@ li a.menu-btn1:hover{
 .home-version2 {
     width: 100%;
     height: 100vh;
-    background: url('../images/crypto_bg_1.png') center center no-repeat;
+    background: url('/assets/images/crypto_bg_1.png') center center no-repeat;
     background-size: cover;
 }
 
@@ -327,22 +327,22 @@ li a.menu-btn1:hover{
 }
 
 .team-content .card #box1 {
-    background-image: url("images/img1.PNG");
+    background-image: url("/assets/images/img1.PNG");
 }
 .team-content .card #box2 {
-    background-image: url("images/img2.PNG");
+    background-image: url("/assets/images/img2.PNG");
 }
 .team-content .card #box3 {
-    background-image: url("images/img3.PNG");
+    background-image: url("/assets/images/img3.PNG");
 }
 .team-content .card #box4 {
-    background-image: url("images/img2.PNG");
+    background-image: url("/assets/images/img2.PNG");
 }
 .team-content .card #box5 {
-    background-image: url("images/img3.PNG");
+    background-image: url("/assets/images/img3.PNG");
 }
 .team-content .card #box6 {
-    background-image: url("images/img1.PNG");
+    background-image: url("/assets/images/img1.PNG");
 }
 
 .team-content .card div, .team-content .card p{color: #fff;}
@@ -446,7 +446,7 @@ margin-bottom: 10px;
 
 /* skills section styling */
 .skills{
-    background-image: url("images/webinar1.png");
+    background-image: url("/assets/images/webinar1.png");
     background-size: cover;
     height: 80vh;
 }
