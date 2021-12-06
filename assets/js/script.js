@@ -142,9 +142,8 @@ contactMessageForm.addEventListener("submit", async (e) => {
                 lastName,
                 email: emailAddress,
                 message,
-            }, {
-                "Content-Type": "application/json",
-            }
+            },
+            { "Content-Type": "application/json" }
         );
         if (response?.code === 201) {
             // Display toast modal
