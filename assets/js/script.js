@@ -1,4 +1,67 @@
-$(document).ready(function(){
+// Change url on production
+const apiRootUrl = 'http://localhost:8000';
+
+const postData = async (url, body, headers) => {
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers,
+            body: JSON.stringify(body),
+        });
+        return await response.json();
+    }
+    catch (ex) {
+        throw ex;
+    }
+};
+
+const getData = async (url, headers) => {
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers,
+        });
+        return await response.json();
+    }
+    catch (ex) {
+        throw ex;
+    }
+};
+
+const findCourses = async () => {
+    const response = await getData(`${apiRootUrl}/course/find-courses-for-sl`, { "Content-Type": "application/json" });
+    if (response.code === 200) { 
+        const courses = response.data;
+
+        // Render content
+        const courseContainer = document.querySelector("#courses-container");
+        courseContainer.innerHTML = '';
+
+        for (const course of courses) {
+            const promoImage = course.promoImageUrl ? course.promoImageUrl : '/assets/images/LOGO1RTD.PNG';
+            // Write path for 'Read more' button
+            courseContainer.innerHTML += `<div class="card custom-card">
+                <div class="box">
+                    <div class="img">
+                        <img src="${promoImage}" alt="${course.title}" />
+                    </div>
+                    <div class="text">
+                        <h2 class="card-title">${course.title}</h2>
+                        <p>${course.description}</p>
+                    </div>
+                    <div class="card-action text-center">
+                        <a href="#" class="menu-btn1">Read More</a>
+                    </div>
+                </div>
+            </div>`;
+        }
+    }
+};
+
+$(document).ready(async function() {
+    // Load data for courses
+    await findCourses();
+
     $(window).scroll(function(){
         // sticky navbar on scroll script
         if(this.scrollY > 20){
@@ -94,36 +157,6 @@ window.addEventListener("scroll", (e) => {
         navbar.classList.remove("navbar-dark");
     }
 });
-
-const postData = async (url, body, headers) => {
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers,
-            body: JSON.stringify(body),
-        });
-        return await response.json();
-    }
-    catch (ex) {
-        throw ex;
-    }
-};
-
-const getData = async (url, headers) => {
-    try {
-        const response = await fetch(url, {
-            method: "GET",
-            headers,
-        });
-        return await response.json();
-    }
-    catch (ex) {
-        throw ex;
-    }
-};
-
-// Change on production
-const apiRootUrl = 'http://localhost:8000';
 
 // Handle contact form submission
 const contactMessageForm = document.querySelector("#contact-message-form");
