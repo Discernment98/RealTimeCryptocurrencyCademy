@@ -1,5 +1,6 @@
 // Change url on production
-const apiRootUrl = 'http://localhost:8000';
+// const apiRootUrl = 'http://localhost:8000';
+const apiRootUrl = 'https://crypto-academia.herokuapp.com';
 
 const postData = async (url, body, headers) => {
     try {
