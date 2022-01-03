@@ -206,3 +206,26 @@ contactMessageForm.addEventListener("submit", async (e) => {
         // throw new Error("Please fill all the fields");
     }
 });
+
+const pageSections = [
+    { sectionName: 'home-version2', navLinkId: 'home-nav' },
+    { sectionName: 'team', navLinkId: 'team-nav' },
+    { sectionName: 'courses', navLinkId: 'course-nav' },
+    { sectionName: 'events', navLinkId: 'event-nav' },
+    { sectionName: 'contact', navLinkId: 'contact-nav' }
+];
+// Use intersection observer to track page scroll and add "active" class to navbar item
+pageSections.forEach((section) => { 
+    const el = document.querySelector(`#${section.sectionName}`)
+    const observer = new window.IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+        document.querySelector(`#${section.navLinkId}`).classList.add('navbar-active');
+        return;
+    }
+    document.querySelector(`#${section.navLinkId}`).classList.remove('navbar-active');
+    }, {
+        root: null,
+        threshold: 0.1, // set offset 0.1 means trigger if at least 10% of element in viewport
+    })
+    observer.observe(el);
+});
