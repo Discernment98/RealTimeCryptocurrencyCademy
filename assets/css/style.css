@@ -91,8 +91,13 @@ section .title::after {
 	transform: translateX(-50%);
 }
 
+.home-version-content p {
+	padding: 80px;
+	font-size: 70px;
+}
+
 .home-version2 button {
-	width: 20vw;
+	/* width: 20vw; */
 	height: 10vh;
 	background-color: var(--primary-text-color);
 	color: #fff;
@@ -100,6 +105,7 @@ section .title::after {
 	font-size: 21px;
 	border: none;
 	margin-top: 40px;
+	padding: 10px 50px;
 }
 
 .home-version2 button:hover {
@@ -757,6 +763,11 @@ footer span a:hover {
 	}
 }
 @media (max-width: 947px) {
+	.home-version-content p {
+		padding: 30px 20px;
+		font-size: 50px;
+	}
+
 	.team-members-list {
 		grid-template-columns: repeat(2, 1fr);
 	}
@@ -831,6 +842,11 @@ footer span a:hover {
 }
 
 @media (max-width: 690px) {
+	.home-version-content p {
+		padding: 30px 20px;
+		font-size: 45px;
+	}
+
 	.team-members-list {
 		grid-template-columns: repeat(1, 1fr);
 	}
@@ -858,6 +874,11 @@ footer span a:hover {
 }
 
 @media (max-width: 500px) {
+	.home-version-content p {
+		padding: 20px 20px;
+		font-size: 30px;
+	}
+
 	.team-members-list {
 		grid-template-columns: repeat(1, 1fr);
 	}
