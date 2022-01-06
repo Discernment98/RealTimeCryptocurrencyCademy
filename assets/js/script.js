@@ -1,6 +1,8 @@
-// Change url on production
-// const apiRootUrl = 'http://localhost:8000';
-const apiRootUrl = 'https://crypto-academia.herokuapp.com';
+const protocol = window.location.protocol;
+const host = window.location.hostname;
+const apiRootUrl = (protocol === 'http' || host.includes('localhost')) ? 
+    'http://localhost:8000' : 
+    'https://crypto-academia.herokuapp.com';
 
 const postData = async (url, body, headers) => {
     try {
@@ -56,9 +58,11 @@ const findCourses = async () => {
                     <div class="img">
                         <img src="${promoImage}" alt="${course.title}" />
                     </div>
-                    <div class="text">
+                    <div class="text course-content">
                         <h2 class="card-title">${course.title}</h2>
-                        <p>${course.description}</p>
+                        <p class="no-margin course-description">
+                            ${course.description}
+                        </p>
                     </div>
                     <div class="card-action text-center">
                         <a href="#" class="menu-btn1">Read More</a>
@@ -68,6 +72,23 @@ const findCourses = async () => {
         }
     }
 };
+
+let timesRun = 0;
+let interval = setInterval(function(){
+    timesRun += 1;
+    if(timesRun === 10){
+        clearInterval(interval);
+    }
+    //do whatever here..
+    const startHtml = '<i class="fa fa-plus"></i>&nbsp;&nbsp;';
+    document.querySelectorAll(".course-content").forEach((element) => { 
+        element.querySelectorAll('ul li').forEach((element) => { 
+            const currentHtml = element.innerHTML;
+            const newHtml = currentHtml.startsWith(startHtml) ? currentHtml : `<i class="fa fa-plus"></i>&nbsp;&nbsp; ${currentHtml}`;
+            element.innerHTML = newHtml;
+        });
+    });
+}, 2000);
 
 $(document).ready(async function() {
     initFooterContent();
