@@ -1,6 +1,6 @@
 const protocol = window.location.protocol;
 const host = window.location.hostname;
-const apiRootUrl = (protocol === 'http' || host.includes('localhost')) ? 
+const apiRootUrl = (protocol === 'http:' || host.includes('localhost')) ? 
     'http://localhost:8000' : 
     'https://crypto-academia.herokuapp.com';
 
