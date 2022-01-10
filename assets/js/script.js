@@ -3,6 +3,7 @@ const host = window.location.hostname;
 const apiRootUrl = (protocol === 'http:' || host.includes('localhost')) ? 
     'http://localhost:8000' : 
     'https://crypto-academia.herokuapp.com';
+// const apiRootUrl = 'https://crypto-academia.herokuapp.com';
 
 const postData = async (url, body, headers) => {
     try {
@@ -65,7 +66,7 @@ const findCourses = async () => {
                         </p>
                     </div>
                     <div class="card-action text-center">
-                        <a href="#" class="menu-btn1">Read More</a>
+                        <a href="#" class="menu-btn1">Join</a>
                     </div>
                 </div>
             </div>`;
