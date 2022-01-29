@@ -187,14 +187,12 @@ $(document).ready(async function() {
 });
 
 function toggleSigninPopup() {
-    document.getElementById("popup-1")
-     .classList.toggle("active");
-   }
-   function toggleSignupPopup() {
-    document.getElementById("popup-2")
-     .classList.toggle("active");
-   }
+    document.getElementById("popup-1").classList.toggle("active");
+}
 
+function toggleSignupPopup() {
+    document.getElementById("popup-2").classList.toggle("active");
+}
 
 // Make navbar sticky on scroll, change bgColor on the navbar
 const navbar = document.querySelector(".navbar");
@@ -244,7 +242,7 @@ contactMessageForm.addEventListener("submit", async (e) => {
 });
 
 const pageSections = [
-    { sectionName: 'home-version2', navLinkId: 'home-nav' },
+    { sectionName: 'home', navLinkId: 'home-nav' },
     { sectionName: 'team', navLinkId: 'team-nav' },
     { sectionName: 'courses', navLinkId: 'course-nav' },
     { sectionName: 'events', navLinkId: 'event-nav' },
@@ -266,3 +264,43 @@ pageSections.forEach((section) => {
     })
     observer.observe(el);
 });
+
+
+let slideIndex = 1;
+let slides;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+    let i;
+    slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("slide-dot");
+    if (n > slides.length) {slideIndex = 1}    
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" slide-active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+}
+
+// Run slider by timer
+setInterval(() => {
+    if (slides.length > 0) { 
+        if (slideIndex < slides.length - 1) {
+            plusSlides(1);
+        }
+        else {
+            plusSlides(-1);
+        }   
+    }
+}, 10000);
