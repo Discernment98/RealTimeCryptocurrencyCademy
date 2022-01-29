@@ -4,6 +4,8 @@
 :root {
 	--font-type: 'Ubuntu', sans-serif;
 	--primary-text-color: crimson;
+	--primary-bg-black: #111111;
+	--color-white: #ffffff;
 }
 
 * {
@@ -732,10 +734,65 @@ footer span a:hover {
 	font-size: 14px;
 }
 
+.about-us {
+	background: var(--primary-bg-black);
+	color: var(--color-white);
+	font-family: var(--font-type);
+	padding: 50px 0;
+}
+
+.about-us-container {
+	display: flex;
+	padding: 10px 60px;
+}
+
+.about-us-widget-text-content {
+	padding-top: 40px;
+}
+
+.about-us .about-us-container .about-us-widget {
+	width: 40%;
+}
+
+.about-us .about-us-container .about-us-widget p {
+	color: #ccc;
+	width: 80%;
+	font-size: 16px;
+	letter-spacing: 0.5px;
+	word-spacing: 1.5px;
+	font-weight: 200;
+	font-family: 'Poppins', sans-serif;
+}
+
+.about-us .about-us-container .about-us-heading {
+	font-size: 35px;
+	letter-spacing: 0.5px;
+	font-weight: 500;
+}
+
+.about-us .about-us-container .about-us-widget img {
+	width: 100%;
+	height: 500px;
+}
+
+.about-us .about-us-container .about-us-widget:nth-child(1) {
+	width: 60%;
+}
+
 /* responsive media query start */
 @media (max-width: 1300px) {
 	.home .max-width {
 		margin-left: 0px;
+	}
+
+	.about-us .about-us-container .about-us-widget,
+	.about-us-widget-img-content {
+		width: 50% !important;
+	}
+
+	.about-us .about-us-container .about-us-widget img {
+		width: 100%;
+		height: 450px;
 	}
 }
 
@@ -743,6 +800,11 @@ footer span a:hover {
 	.team .team-content .left img {
 		height: 350px;
 		width: 350px;
+	}
+
+	.about-us .about-us-container .about-us-widget,
+	.about-us-widget-img-content {
+		width: 50% !important;
 	}
 }
 
@@ -764,8 +826,20 @@ footer span a:hover {
 		color: #ccc;
 		font-size: 14px;
 	}
+
+	.about-us .about-us-container .about-us-widget {
+		width: 100% !important;
+	}
+
+	.about-us .about-us-container .about-us-widget p {
+		width: 100%;
+	}
 }
 @media (max-width: 947px) {
+	.hide-md-down {
+		display: none;
+	}
+
 	.home-version-content p {
 		padding: 30px 20px;
 		font-size: 50px;
@@ -842,9 +916,21 @@ footer span a:hover {
 		width: 100%;
 		margin-bottom: 35px;
 	}
+
+	.about-us .about-us-container .about-us-widget {
+		width: 100% !important;
+	}
+
+	.about-us .about-us-container .about-us-widget p {
+		width: 100%;
+	}
 }
 
 @media (max-width: 690px) {
+	.hide-md-down {
+		display: none;
+	}
+
 	.home-version-content p {
 		padding: 30px 20px;
 		font-size: 45px;
@@ -872,6 +958,22 @@ footer span a:hover {
 		font-size: 20px;
 	}
 	.courses .serv-content .card {
+		width: 100%;
+	}
+
+	.about-us {
+		padding: 10px 0 40px 0;
+	}
+
+	.about-us-container {
+		padding: 10px 20px;
+	}
+
+	.about-us .about-us-container .about-us-widget {
+		width: 100% !important;
+	}
+
+	.about-us .about-us-container .about-us-widget p {
 		width: 100%;
 	}
 }
@@ -919,6 +1021,26 @@ footer span a:hover {
 
 	.hide-sm-down {
 		display: none;
+	}
+
+	.hide-md-down {
+		display: none;
+	}
+
+	.about-us {
+		padding: 10px 0 40px 0;
+	}
+
+	.about-us-container {
+		padding: 10px 20px;
+	}
+
+	.about-us .about-us-container .about-us-widget {
+		width: 100% !important;
+	}
+
+	.about-us .about-us-container .about-us-widget p {
+		width: 100%;
 	}
 }
 
@@ -1252,3 +1374,31 @@ footer span a:hover {
 /* .course-content ul li::before {
 	content: '<i class="fa fa-plus"></i>';
 } */
+
+.text-capitalize {
+	text-transform: capitalize;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.mb-10 {
+	margin-bottom: 10px;
+}
+
+.mb-20 {
+	margin-bottom: 20px;
+}
+
+.mb-30 {
+	margin-bottom: 30px;
+}
+
+.mb-40 {
+	margin-bottom: 40px;
+}
+
+.mb-50 {
+	margin-bottom: 50px;
+}

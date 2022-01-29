@@ -1,9 +1,9 @@
 const protocol = window.location.protocol;
 const host = window.location.hostname;
-const apiRootUrl = (protocol === 'http:' || host.includes('localhost')) ? 
-    'http://localhost:8000' : 
-    'https://crypto-academia.herokuapp.com';
-// const apiRootUrl = 'https://crypto-academia.herokuapp.com';
+// const apiRootUrl = (protocol === 'http:' || host.includes('localhost')) ? 
+//     'http://localhost:8000' : 
+//     'https://crypto-academia.herokuapp.com';
+const apiRootUrl = 'https://crypto-academia.herokuapp.com';
 
 const postData = async (url, body, headers) => {
     try {
@@ -45,11 +45,25 @@ const initFooterContent = () => {
 const findCourses = async () => {
     const response = await getData(`${apiRootUrl}/course/find-courses-for-sl`, { "Content-Type": "application/json" });
     if (response.code === 200) { 
-        const courses = response.data;
+        let courses = response.data;
 
         // Render content
         const courseContainer = document.querySelector("#courses-container");
         courseContainer.innerHTML = '';
+
+        // Reorder courses by basic, master and advanced
+        if (courses?.length > 0) {
+            if (courses.find(({ title }) => title.toLowerCase().startsWith('basic')) && 
+                courses.find(({ title }) => title.toLowerCase().startsWith('advanced')) && 
+                courses.find(({ title }) => title.toLowerCase().startsWith('master'))
+            ) {
+                const reorderedCoursesArray = [];
+                reorderedCoursesArray[0] = courses.find(({ title }) => title.toLowerCase().startsWith('basic'));
+                reorderedCoursesArray[1] = courses.find(({ title }) => title.toLowerCase().startsWith('advanced'));
+                reorderedCoursesArray[2] = courses.find(({ title }) => title.toLowerCase().startsWith('master'));
+                courses = reorderedCoursesArray;
+            }
+        }
 
         for (const course of courses) {
             const promoImage = course.promoImageUrl ? course.promoImageUrl : '/assets/images/LOGO1RTD.PNG';
@@ -234,17 +248,18 @@ const pageSections = [
     { sectionName: 'team', navLinkId: 'team-nav' },
     { sectionName: 'courses', navLinkId: 'course-nav' },
     { sectionName: 'events', navLinkId: 'event-nav' },
-    { sectionName: 'contact', navLinkId: 'contact-nav' }
+    { sectionName: 'contact', navLinkId: 'contact-nav' },
+    { sectionName: 'about-us', navLinkId: 'about-nav' },
 ];
 // Use intersection observer to track page scroll and add "active" class to navbar item
 pageSections.forEach((section) => { 
     const el = document.querySelector(`#${section.sectionName}`)
     const observer = new window.IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-        document.querySelector(`#${section.navLinkId}`).classList.add('navbar-active');
-        return;
-    }
-    document.querySelector(`#${section.navLinkId}`).classList.remove('navbar-active');
+        if (entry.isIntersecting) {
+            document.querySelector(`#${section.navLinkId}`).classList.add('navbar-active');
+            return;
+        }
+        document.querySelector(`#${section.navLinkId}`).classList.remove('navbar-active');
     }, {
         root: null,
         threshold: 0.1, // set offset 0.1 means trigger if at least 10% of element in viewport
