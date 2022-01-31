@@ -229,9 +229,9 @@ li a.menu-btn1:hover {
 .home-version2 {
 	width: 100%;
 	height: 100vh;
-	background: url('https://ik.imagekit.io/cmz0p5kwiyok/public-images/crypto_bg_1_kpKjw23nG.png?updatedAt=1641299177850')
+	/* background: url('https://ik.imagekit.io/cmz0p5kwiyok/public-images/crypto_bg_1_kpKjw23nG.png?updatedAt=1641299177850')
 		center center no-repeat;
-	background-size: cover;
+	background-size: cover; */
 }
 
 .inner-version {

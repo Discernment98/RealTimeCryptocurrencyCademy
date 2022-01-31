@@ -59,8 +59,8 @@ const findCourses = async () => {
             ) {
                 const reorderedCoursesArray = [];
                 reorderedCoursesArray[0] = courses.find(({ title }) => title.toLowerCase().startsWith('basic'));
-                reorderedCoursesArray[1] = courses.find(({ title }) => title.toLowerCase().startsWith('advanced'));
-                reorderedCoursesArray[2] = courses.find(({ title }) => title.toLowerCase().startsWith('master'));
+                reorderedCoursesArray[1] = courses.find(({ title }) => title.toLowerCase().startsWith('master'));
+                reorderedCoursesArray[2] = courses.find(({ title }) => title.toLowerCase().startsWith('advanced'));
                 courses = reorderedCoursesArray;
             }
         }
