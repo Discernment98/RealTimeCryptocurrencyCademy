@@ -7,6 +7,8 @@
 	--primary-text-color: crimson;
 	--primary-bg-black: #111111;
 	--color-white: #ffffff;
+	--box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+		0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -780,10 +782,15 @@ footer span a:hover {
 	width: 60%;
 }
 
+.text-danger {
+	color: #c61136;
+}
+
 .event-section {
-	background: url('https://ik.imagekit.io/cmz0p5kwiyok/default-image.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1641298924440')
+	/* background: url('https://ik.imagekit.io/cmz0p5kwiyok/default-image.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1641298924440')
 		center center no-repeat fixed;
-	background-size: cover;
+	background-size: cover; */
+	background: #fff;
 	width: 100%;
 	min-height: 500px;
 	padding: 0;
@@ -791,51 +798,95 @@ footer span a:hover {
 }
 
 .event-section-inner {
-	height: 500px !important;
+	min-height: 500px !important;
 	width: 100%;
-	background: rgba(0, 0, 0, 0.8);
-	padding: 30px;
+	background: transparent;
+	padding: 50px 0;
+}
+
+.event-section-inner .vertical-card {
+	background: var(--color-white);
+	width: 80%;
+	margin: 0 auto;
+	min-height: 500px;
 
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 }
 
-.card-section {
-	width: 80%;
-	margin: 0 auto;
-	background: #fff;
-	border-radius: 10px;
+.event-section-inner .vertical-card .vertical-card-widget {
+	height: 500px;
 }
 
-.card {
-	width: 100%;
-}
-
-.card .card-image img {
+.event-section-inner .vertical-card .vertical-card-widget img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	border-radius: 10px 10px 0 0;
 }
 
-.card .card-body {
+.vertical-card-widget .card-widget-content {
+	padding: 20px 25px;
 	font-family: var(--secondary-font-type);
 }
 
-.card-text-content {
-	padding: 20px;
+.widget-title {
+	font-size: 50px;
+	font-weight: 500;
+	text-transform: uppercase;
+	line-height: 60px;
 }
 
-.card .card-action {
-	padding: 35px 0 20px 0;
-}
-
-.card .card-title {
+.widget-sub-title {
+	letter-spacing: 1.5px;
+	font-size: 30px;
+	text-transform: uppercase;
 	font-weight: normal;
+}
+
+.card-widget-content time {
+	font-size: 25px;
+	font-weight: normal;
+	color: #555;
+}
+
+.btn-hold {
+	width: 100%;
+	margin-top: 30px;
+}
+
+.btn-large {
+	padding: 20px 40px !important;
+	border: none;
+	font-size: 25px;
+	border-radius: 5px;
+	box-shadow: var(--box-shadow);
+
+	color: #fff;
+	background: #dc143c;
+}
+
+.inherit-color {
+	color: inherit;
 }
 
 /* responsive media query start */
 @media (max-width: 1300px) {
+	.widget-title {
+		font-size: 45px;
+		line-height: 45px;
+	}
+
+	.event-section-inner .vertical-card {
+		width: 90%;
+	}
+
+	.btn-large {
+		padding: 20px 40px !important;
+		border: none;
+		font-size: 20px;
+		border-radius: 5px;
+	}
+
 	.home .max-width {
 		margin-left: 0px;
 	}
@@ -852,6 +903,21 @@ footer span a:hover {
 }
 
 @media (max-width: 1104px) {
+	.event-section-inner .vertical-card {
+		width: 100%;
+	}
+
+	.widget-title {
+		font-size: 45px;
+		line-height: 45px;
+	}
+
+	.btn-large {
+		padding: 20px 40px !important;
+		border: none;
+		font-size: 20px;
+		border-radius: 5px;
+	}
 	.team .team-content .left img {
 		height: 350px;
 		width: 350px;
@@ -864,6 +930,19 @@ footer span a:hover {
 }
 
 @media (max-width: 991px) {
+	.event-section-inner .vertical-card {
+		width: 100%;
+	}
+
+	.widget-title {
+		font-size: 40px;
+		line-height: 40px;
+	}
+
+	.card-widget-content time {
+		font-size: 22px;
+	}
+
 	.max-width {
 		padding: 0 50px;
 	}
@@ -891,6 +970,19 @@ footer span a:hover {
 	}
 }
 @media (max-width: 947px) {
+	.event-section-inner .vertical-card {
+		width: 100%;
+	}
+
+	.widget-title {
+		font-size: 40px;
+		line-height: 40px;
+	}
+
+	.card-widget-content time {
+		font-size: 22px;
+	}
+
 	.hide-md-down {
 		display: none;
 	}
@@ -982,6 +1074,15 @@ footer span a:hover {
 }
 
 @media (max-width: 690px) {
+	.event-section-inner .vertical-card {
+		width: 100%;
+	}
+
+	.widget-title {
+		font-size: 40px;
+		line-height: 40px;
+	}
+
 	.hide-md-down {
 		display: none;
 	}
@@ -1034,6 +1135,20 @@ footer span a:hover {
 }
 
 @media (max-width: 500px) {
+	.event-section-inner .vertical-card {
+		width: 100%;
+	}
+
+	.vertical-card-widget .card-widget-content {
+		padding: 20px 40px;
+	}
+
+	.widget-title {
+		font-size: 40px;
+		line-height: 40px;
+		color: pink;
+	}
+
 	.home-version-content p {
 		padding: 20px 20px;
 		font-size: 30px;
@@ -1100,6 +1215,19 @@ footer span a:hover {
 }
 
 @media only screen and (max-width: 300px) {
+	.event-section-inner .vertical-card {
+		width: 100%;
+	}
+
+	.vertical-card-widget .card-widget-content {
+		padding: 20px 30px;
+	}
+
+	.widget-title {
+		font-size: 40px;
+		line-height: 40px;
+	}
+
 	.slide-prev,
 	.slide-next,
 	.slide-text {
