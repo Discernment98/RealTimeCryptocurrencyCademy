@@ -42,10 +42,29 @@ const initFooterContent = () => {
     `;
 };
 
+const formatToCurrency = (amount) => {
+    // return (amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); 
+    return amount.toLocaleString(undefined, {
+        minimumFractionDigits: 2, 
+        maximumFractionDigits: 2
+    });
+};
+
 const findCourses = async () => {
-    const response = await getData(`${apiRootUrl}/course/find-courses-for-sl`, { "Content-Type": "application/json" });
+    const requestUrl = `${apiRootUrl}/course/find-courses-for-sl?fields=code,data(id,title,promoImageUrl,description,pricesForThisCourse(status,price))`;
+    const response = await getData(requestUrl, { "Content-Type": "application/json" });
     if (response.code === 200) { 
         let courses = response.data;
+        courses = courses.map((course) => {
+            const findPrice = course.pricesForThisCourse.find((price) => price.status);
+            return {
+                promoImageUrl: course.promoImageUrl,
+                title: course.title,
+                description: course.description,
+                id: course.id,
+                price: `₦${formatToCurrency(findPrice?.price ?? 0)}`
+            };
+        });
 
         // Render content
         const courseContainer = document.querySelector("#courses-container");
@@ -75,9 +94,10 @@ const findCourses = async () => {
                     </div>
                     <div class="text course-content">
                         <h2 class="card-title">${course.title}</h2>
-                        <p class="no-margin course-description">
+                        <p class="text-danger course-price-section">${course.price}</p>
+                        <div class="no-margin course-description">
                             ${course.description}
-                        </p>
+                        </div>
                     </div>
                     <div class="card-action text-center">
                         <a href="#" class="menu-btn1">Join</a>

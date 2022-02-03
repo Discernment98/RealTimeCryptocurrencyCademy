@@ -1544,6 +1544,20 @@ footer span a:hover {
 	text-align: left !important;
 }
 
+.course-price-section {
+	margin: 0 !important;
+	font-size: 20px !important;
+	padding-bottom: 0 !important;
+}
+
+.course-description {
+	padding-top: 15px;
+}
+
+.course-content ul {
+	margin-top: 0 !important;
+}
+
 .course-content ul li {
 	list-style: none !important;
 	font-family: 'Poppins', sans-serif;
