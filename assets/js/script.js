@@ -4,6 +4,7 @@ const host = window.location.hostname;
 //     'http://localhost:8000' : 
 //     'https://crypto-academia.herokuapp.com';
 const apiRootUrl = 'https://crypto-academia.herokuapp.com';
+const dashboardUrl = `https://crypto-academia-dashboard.netlify.app/#`;
 
 const postData = async (url, body, headers) => {
     try {
@@ -43,68 +44,133 @@ const initFooterContent = () => {
 };
 
 const formatToCurrency = (amount) => {
-    // return (amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); 
     return amount.toLocaleString(undefined, {
         minimumFractionDigits: 2, 
         maximumFractionDigits: 2
     });
 };
 
-const findCourses = async () => {
-    const requestUrl = `${apiRootUrl}/course/find-courses-for-sl?fields=code,data(id,title,promoImageUrl,description,pricesForThisCourse(status,price))`;
-    const response = await getData(requestUrl, { "Content-Type": "application/json" });
-    if (response.code === 200) { 
-        let courses = response.data;
-        courses = courses.map((course) => {
-            const findPrice = course.pricesForThisCourse.find((price) => price.status);
-            return {
-                promoImageUrl: course.promoImageUrl,
-                title: course.title,
-                description: course.description,
-                id: course.id,
-                price: `₦${formatToCurrency(findPrice?.price ?? 0)}`
-            };
-        });
+// Find latest event
+const findLatestEvent = async () => {
+    try {
+        const requestUrl = `${apiRootUrl}/course-event/latest/find-latest-upcoming-event/${new Date()}`;
+        const response = await getData(requestUrl, { "Content-Type": "application/json" });
+        if (response.code === 200) {
+            const { 
+                data: { 
+                    address, 
+                    title, 
+                    eventDate, 
+                    promotionalImage 
+                },
+            } = response;
+            const event = new Date(eventDate);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedEventDate = event.toLocaleDateString('en-US', options);
 
-        // Render content
-        const courseContainer = document.querySelector("#courses-container");
-        courseContainer.innerHTML = '';
-
-        // Reorder courses by basic, master and advanced
-        if (courses?.length > 0) {
-            if (courses.find(({ title }) => title.toLowerCase().startsWith('basic')) && 
-                courses.find(({ title }) => title.toLowerCase().startsWith('advanced')) && 
-                courses.find(({ title }) => title.toLowerCase().startsWith('master'))
-            ) {
-                const reorderedCoursesArray = [];
-                reorderedCoursesArray[0] = courses.find(({ title }) => title.toLowerCase().startsWith('basic'));
-                reorderedCoursesArray[1] = courses.find(({ title }) => title.toLowerCase().startsWith('master'));
-                reorderedCoursesArray[2] = courses.find(({ title }) => title.toLowerCase().startsWith('advanced'));
-                courses = reorderedCoursesArray;
-            }
-        }
-
-        for (const course of courses) {
-            const promoImage = course.promoImageUrl ? course.promoImageUrl : '/assets/images/LOGO1RTD.PNG';
-            // Write path for 'Read more' button
-            courseContainer.innerHTML += `<div class="card custom-card">
-                <div class="box">
-                    <div class="img">
-                        <img src="${promoImage}" alt="${course.title}" />
-                    </div>
-                    <div class="text course-content">
-                        <h2 class="card-title">${course.title}</h2>
-                        <p class="text-danger course-price-section">${course.price}</p>
-                        <div class="no-margin course-description">
-                            ${course.description}
+            const container = document.querySelector("#events-card");
+            container.innerHTML = '';
+            container.innerHTML = `
+                <div class="vertical-card-widget">
+                    <div class="card-widget-content">
+                        <h4 class="widget-sub-title">
+                            ${address ? 'Seminar' : 'Webinar'}
+                        </h4>
+                        <h1 class="text-danger widget-title">
+                            ${title}
+                        </h1>
+                        ${
+                            // TODO: Set eventTime, and return from the server
+                            (true) ? ` 
+                            <time>
+                                ${formattedEventDate}
+                            </time>` : 
+                            `<time>
+                                ${formattedEventDate} @ 10:00 AM
+                            </time>
+                            `
+                        }
+                    
+                        <div class="btn-hold mt-40">
+                            <button class="btn btn-large">
+                                <a target="_blank" href="${dashboardUrl}" class="inherit-color">
+                                    Register Now
+                                </a>
+                            </button>
                         </div>
                     </div>
-                    <div class="card-action text-center">
-                        <a href="#" class="menu-btn1">Join</a>
-                    </div>
                 </div>
-            </div>`;
+                <div class="vertical-card-widget hide-md-down">
+                    <img src="${promotionalImage}" alt="${title}" />
+                </div>
+            `;
         }
+    }
+    catch (ex) {
+        throw ex;
+    }
+}
+
+const findCourses = async () => {
+    try {
+        const requestUrl = `${apiRootUrl}/course/find-courses-for-sl?fields=code,data(id,title,promoImageUrl,description,pricesForThisCourse(status,price))`;
+        const response = await getData(requestUrl, { "Content-Type": "application/json" });
+        if (response.code === 200) { 
+            let courses = response.data;
+            courses = courses.map((course) => {
+                const findPrice = course.pricesForThisCourse.find((price) => price.status);
+                return {
+                    promoImageUrl: course.promoImageUrl,
+                    title: course.title,
+                    description: course.description,
+                    id: course.id,
+                    price: `₦${formatToCurrency(findPrice?.price ?? 0)}`
+                };
+            });
+
+            // Render content
+            const courseContainer = document.querySelector("#courses-container");
+            courseContainer.innerHTML = '';
+
+            // Reorder courses by basic, master and advanced
+            if (courses?.length > 0) {
+                if (courses.find(({ title }) => title.toLowerCase().startsWith('basic')) && 
+                    courses.find(({ title }) => title.toLowerCase().startsWith('advanced')) && 
+                    courses.find(({ title }) => title.toLowerCase().startsWith('master'))
+                ) {
+                    const reorderedCoursesArray = [];
+                    reorderedCoursesArray[0] = courses.find(({ title }) => title.toLowerCase().startsWith('basic'));
+                    reorderedCoursesArray[1] = courses.find(({ title }) => title.toLowerCase().startsWith('master'));
+                    reorderedCoursesArray[2] = courses.find(({ title }) => title.toLowerCase().startsWith('advanced'));
+                    courses = reorderedCoursesArray;
+                }
+            }
+
+            for (const course of courses) {
+                const promoImage = course.promoImageUrl ? course.promoImageUrl : '/assets/images/LOGO1RTD.PNG';
+                // Write path for 'Read more' button
+                courseContainer.innerHTML += `<div class="card custom-card">
+                    <div class="box">
+                        <div class="img">
+                            <img src="${promoImage}" alt="${course.title}" />
+                        </div>
+                        <div class="text course-content">
+                            <h2 class="card-title">${course.title}</h2>
+                            <p class="text-danger course-price-section">${course.price}</p>
+                            <div class="no-margin course-description">
+                                ${course.description}
+                            </div>
+                        </div>
+                        <div class="card-action text-center">
+                            <a href="#" class="menu-btn1">Join</a>
+                        </div>
+                    </div>
+                </div>`;
+            }
+        }
+    }
+    catch (ex) {
+        throw ex;
     }
 };
 
@@ -129,6 +195,9 @@ $(document).ready(async function() {
     initFooterContent();
     // Load data for courses
     await findCourses();
+
+    // Load latest event
+    await findLatestEvent();
 
     $(window).scroll(function(){
         // sticky navbar on scroll script
@@ -234,30 +303,35 @@ contactMessageForm.addEventListener("submit", async (e) => {
     const emailAddress = document.querySelector("#email-address").value;
     const message = document.querySelector("#contact-message").value;
     
-    if (firstName && lastName && emailAddress && message) {
-        const response = await postData(`${apiRootUrl}/contact-message`, 
-            {
-                firstName,
-                lastName,
-                email: emailAddress,
-                message,
-            },
-            { "Content-Type": "application/json" }
-        );
-        if (response?.code === 201) {
-            // Display toast modal
-            mdtoast(response.message, { 
-                type: 'success',
+    try {
+        if (firstName && lastName && emailAddress && message) {
+            const response = await postData(`${apiRootUrl}/contact-message`, 
+                {
+                    firstName,
+                    lastName,
+                    email: emailAddress,
+                    message,
+                },
+                { "Content-Type": "application/json" }
+            );
+            if (response?.code === 201) {
+                // Display toast modal
+                mdtoast(response.message, { 
+                    type: 'success',
+                    position: 'top right',
+                });
+                contactMessageForm.reset();
+            }
+        } else {
+            mdtoast("Please fill all the fields", {
+                type: 'error',
                 position: 'top right',
             });
-            contactMessageForm.reset();
+            // throw new Error("Please fill all the fields");
         }
-    } else {
-        mdtoast("Please fill all the fields", {
-            type: 'error',
-            position: 'top right',
-        });
-        // throw new Error("Please fill all the fields");
+    }
+    catch (ex) {
+        throw ex;
     }
 });
 
