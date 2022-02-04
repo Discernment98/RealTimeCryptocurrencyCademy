@@ -65,8 +65,8 @@ const findLatestEvent = async () => {
                 },
             } = response;
             const event = new Date(eventDate);
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const formattedEventDate = event.toLocaleDateString('en-US', options);
+            const dateFormattingOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedEventDate = event.toLocaleDateString('en-US', dateFormattingOptions);
 
             const container = document.querySelector("#events-card");
             container.innerHTML = '';
