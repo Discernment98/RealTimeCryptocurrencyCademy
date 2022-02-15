@@ -104,6 +104,16 @@ const findLatestEvent = async () => {
                     <img src="${promotionalImage}" alt="${title}" />
                 </div>
             `;
+        } else {
+            const footerElement = document.querySelector("#footer");
+            const contactElement = document.querySelector("#contact");
+            const containerElement = document.querySelector("#events");
+            const eventNavLinkElement = document.querySelector("#event-nav-li");
+            
+            eventNavLinkElement.classList.add('display-none');
+            containerElement.classList.add('display-none');
+            footerElement.classList.add('bg-black');
+            contactElement.classList.add('bg-white');
         }
     }
     catch (ex) {

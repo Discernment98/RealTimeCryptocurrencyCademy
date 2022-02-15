@@ -1698,6 +1698,46 @@ footer span a:hover {
 	animation-duration: 1.5s;
 }
 
+.display-none {
+	display: none !important;
+}
+
+.bg-white {
+	background: #ffffff !important;
+}
+
+.bg-white .sub-title,
+.bg-white .title {
+	color: #000 !important;
+}
+
+.bg-white .title::before {
+	content: '';
+	position: absolute;
+	bottom: 0px;
+	left: 50%;
+	width: 180px;
+	height: 3px;
+	background: #111 !important;
+	transform: translateX(-50%);
+}
+
+.bg-white .title::after {
+	position: absolute;
+	bottom: -8px;
+	left: 50%;
+	font-size: 20px;
+	color: var(--primary-text-color);
+	padding: 0 5px;
+	background: #fff;
+	transform: translateX(-50%);
+}
+
+.bg-black {
+	background: #111111;
+	color: #ffffff;
+}
+
 @-webkit-keyframes slide-fade {
 	from {
 		opacity: 0.4;
