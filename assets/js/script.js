@@ -172,7 +172,9 @@ const findCourses = async () => {
                         </div>
                         <p class="text-danger course-price-section">${course.price}</p>
                         <div class="card-action text-center">
-                            <a href="#" class="menu-btn1">Join</a>
+                            <a href="${dashboardUrl}/course/info/:${course.id}" target="_blank" class="menu-btn1">
+                                Join
+                            </a>
                         </div>
                     </div>
                 </div>`;
