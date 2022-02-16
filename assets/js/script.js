@@ -61,7 +61,8 @@ const findLatestEvent = async () => {
                     address, 
                     title, 
                     eventDate, 
-                    promotionalImage 
+                    promotionalImage,
+                    eventTime,
                 },
             } = response;
             const event = new Date(eventDate);
@@ -80,14 +81,13 @@ const findLatestEvent = async () => {
                             ${title}
                         </h1>
                         ${
-                            // TODO: Set eventTime, and return from the server
-                            (true) ? ` 
-                            <time>
-                                ${formattedEventDate}
-                            </time>` : 
-                            `<time>
-                                ${formattedEventDate} @ 10:00 AM
-                            </time>
+                            (eventTime) ? ` 
+                                <time>
+                                    ${formattedEventDate}
+                                </time>` : 
+                                `<time>
+                                    ${formattedEventDate} @ ${eventTime}
+                                </time>
                             `
                         }
                     
