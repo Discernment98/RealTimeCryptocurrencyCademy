@@ -63,6 +63,7 @@ const findLatestEvent = async () => {
                     eventDate, 
                     promotionalImage,
                     eventTime,
+                    id: eventId
                 },
             } = response;
             const event = new Date(eventDate);
@@ -93,7 +94,7 @@ const findLatestEvent = async () => {
                     
                         <div class="btn-hold mt-40">
                             <button class="btn btn-large">
-                                <a target="_blank" href="${dashboardUrl}" class="inherit-color">
+                                <a target="_blank" href="${dashboardUrl}/event/:${eventId}" class="inherit-color">
                                     Register Now
                                 </a>
                             </button>
